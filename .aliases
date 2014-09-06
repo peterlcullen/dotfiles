@@ -1,0 +1,6 @@
+#!/bin/bash
+
+alias ll='ls -la'
+alias server='python -m SimpleHTTPServer'
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
