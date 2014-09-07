@@ -13,5 +13,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'croaky/vim-colors-github'
 Plugin 'kien/ctrlp.vim'
 
+Plugin 'flazz/vim-colorschemes'
+
 call vundle#end()
 filetype on
