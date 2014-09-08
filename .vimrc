@@ -2,6 +2,10 @@
 " possible, as it has side effects.
 set nocompatible
 
+set nobackup
+set nowritebackup
+set noswapfile
+
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
