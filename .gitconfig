@@ -3,27 +3,27 @@
   # email - set on each repo
 
 [core]
-	excludesfile = ~/.gitignore_global
+  excludesfile = ~/.gitignore_global
 
 [color]
-	ui = true
+  ui = true
 
 [alias]
-	co = checkout
-	ci = commit
-	st = status -sb
-	br = branch
-	hist = log --pretty=format:\"%h %ad [%an] | %s%d\" --date=relative
-	histg = log --pretty=format:\"%h %ad [%an] | %s%d\" --graph --date=relative
-	type = cat-file -t
-	dump = cat-file -p
-	skipped = !git ls-files -v | grep ^[a-z]
+  co = checkout
+  ci = commit
+  st = status -sb
+  br = branch
+  hist = log --pretty=format:\"%h %ad [%an] | %s%d\" --date=relative
+  histg = log --pretty=format:\"%h %ad [%an] | %s%d\" --graph --date=relative
+  type = cat-file -t
+  dump = cat-file -p
+  skipped = !git ls-files -v | grep ^[a-z]
   skip = !git update-index --assume-unchanged
   unskip = !git update-index --no-assume-unchanged
   histb = log --graph --decorate --oneline --simplify-by-decoration --all
 
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
 
 [push]
-	default = simple
+  default = simple
