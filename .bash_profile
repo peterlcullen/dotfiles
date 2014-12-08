@@ -24,3 +24,6 @@ export PATH="/usr/local/share/npm/bin:$PATH"
 
 # Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+# homebrew bins
+export PATH="/usr/local/bin:$PATH"
