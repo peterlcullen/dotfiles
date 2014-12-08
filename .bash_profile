@@ -16,12 +16,6 @@ for file in ~/.extra*; do
 done;
 unset file;
 
-# rbenv shims and autocompletion
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-# pyenv shims, autocomplete, etc
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-
 # npm bins
 export PATH="/usr/local/share/npm/bin:$PATH"
 
@@ -30,3 +24,9 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 # homebrew bins
 export PATH="/usr/local/bin:$PATH"
+
+# rbenv shims and autocompletion
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# pyenv shims, autocomplete, etc
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
