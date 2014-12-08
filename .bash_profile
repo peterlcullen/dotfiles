@@ -19,6 +19,9 @@ unset file;
 # rbenv shims and autocompletion
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+# pyenv shims, autocomplete, etc
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
 # npm bins
 export PATH="/usr/local/share/npm/bin:$PATH"
 
