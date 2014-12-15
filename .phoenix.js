@@ -1,3 +1,13 @@
+// config file for Phoenix window manager https://github.com/jasonm23/phoenix
+// To install:
+//   install cask, if haven't already
+//   $ brew install caskroom/cask/brew-cask
+//   
+//   install phoenix
+//   $ brew cask install phoenix
+//   
+//   open phoenix app and give permission to "control your computer" (in Preferences/Security)
+
 var mash = [ 'cmd', 'alt', 'ctrl' ],
   monitorMash = ['alt', 'ctrl']
   padding = 0,
