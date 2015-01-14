@@ -165,14 +165,14 @@ prompt_git() {
 if [[ "${USER}" == "root" ]]; then
 	userStyle="${Red}";
 else
-	userStyle="${White}";
+	userStyle="${Reset}";
 fi;
 
 # Highlight the hostname when connected via SSH.
 if [[ "${SSH_TTY}" ]]; then
 	hostStyle="${Red}";
 else
-	hostStyle="${White}";
+	hostStyle="${Reset}";
 fi;
 
 # Set the terminal title to the current working directory.
@@ -182,11 +182,11 @@ PS1+="\[${userStyle}\]\u"; # username
 PS1+="\[${IBlack}\] at ";
 PS1+="\[${hostStyle}\]\h"; # host
 PS1+="\[${IBlack}\] in ";
-PS1+="\[${White}\]\w"; # working directory
-PS1+="\$(prompt_git \"${IBlack} on ${White}\" \"${White}\")"; # Git repository details
+PS1+="\[${Reset}\]\w"; # working directory
+PS1+="\$(prompt_git \"${IBlack} on ${Reset}\" \"${Reset}\")"; # Git repository details
 PS1+="\n";
-PS1+="\[${IBlack}\]\$ \[${White}\]"; # `$` (and reset color)
+PS1+="\[${IBlack}\]\$ \[${Reset}\]"; # `$` (and reset color)
 export PS1;
 
-PS2="\[$Yellow}\]→ \[${White}\]";
+PS2="\[$Yellow}\]→ \[${Reset}\]";
 export PS2;
