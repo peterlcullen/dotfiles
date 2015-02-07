@@ -1,7 +1,7 @@
 " Use Vim settings, rather then Vi settings. This setting must be as early as
 " possible, as it has side effects.
-set nocompatible
 
+set nocompatible
 set nobackup
 set nowritebackup
 set noswapfile
@@ -37,10 +37,26 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-" Color scheme
-" colorscheme github
-highlight NonText guibg=#060606
-highlight Folded  guibg=#0A0A0A guifg=#9090D0
+
+" Color overrides
+hi LineNr ctermfg=8
+hi Statement ctermfg=4
+hi Comment ctermfg=8
+hi ColorColumn ctermbg=0
+
+
+" GitGutter Config
+" vim-gitgutter made the gutter grey, this overrides it
+hi clear SignColumn
+hi GitGutterAdd ctermbg=NONE
+hi GitGutterChange ctermbg=NONE
+hi GitGutterDelete ctermbg=NONE
+hi GitGutterChangeDelete ctermbg=NONE
+
+" speed up the updatetime
+set updatetime=750
+
+
 
 " Make it obvious where 80 characters is
 set textwidth=80
@@ -49,3 +65,5 @@ set colorcolumn=+1
 " Numbers
 set number
 set numberwidth=5
+
+

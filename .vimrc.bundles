@@ -13,6 +13,7 @@ Plugin 'gmarik/Vundle.vim'
 " plugins
 Plugin 'kien/ctrlp.vim'
 Plugin 'tomtom/tcomment_vim'
+Plugin 'airblade/vim-gitgutter'
 
 " color schemes
 Plugin 'croaky/vim-colors-github'
