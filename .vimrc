@@ -39,24 +39,11 @@ endif
 
 
 " Color overrides
-hi LineNr ctermfg=8
-hi Statement ctermfg=4
-hi Comment ctermfg=8
-hi ColorColumn ctermbg=0
-
+colo base16-default
+set background=dark
 
 " GitGutter Config
-" vim-gitgutter made the gutter grey, this overrides it
-hi clear SignColumn
-hi GitGutterAdd ctermbg=NONE
-hi GitGutterChange ctermbg=NONE
-hi GitGutterDelete ctermbg=NONE
-hi GitGutterChangeDelete ctermbg=NONE
-
-" speed up the updatetime
 set updatetime=750
-
-
 
 " Make it obvious where 80 characters is
 set textwidth=80
@@ -65,5 +52,4 @@ set colorcolumn=+1
 " Numbers
 set number
 set numberwidth=5
-
 

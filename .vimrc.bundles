@@ -14,10 +14,8 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'airblade/vim-gitgutter'
-
-" color schemes
-Plugin 'croaky/vim-colors-github'
-Plugin 'flazz/vim-colorschemes'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'chriskempson/base16-vim'
 
 call vundle#end()
 filetype on
