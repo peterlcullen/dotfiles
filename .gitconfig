@@ -14,7 +14,7 @@
   st = status -sb
   br = branch
   hist = log --pretty=format:\"%h %ad [%an] | %C(auto)%s%d\" --date=relative --all
-  histt = log --pretty=format:\"%h %ad [%an] | %C(auto)%s%d\" --date=local --all
+  histt = log --pretty=format:\"%h %ad [%an] | %C(auto)%s%d\" --date=local --all --date-order
   histg = log --pretty=format:\"%h %ad [%an] | %C(auto)%s%d\" --graph --date=relative --all
   type = cat-file -t
   dump = cat-file -p
