@@ -22,8 +22,10 @@ set shiftwidth=2
 set shiftround
 set expandtab
 
+set smartindent
+
 " Display extra whitespace
-" set list listchars=tab:»·,trail:·
+set list listchars=tab:»·,trail:·
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -37,8 +39,11 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " Color overrides
+let base16colorspace=256  " Access colors present in 256 colorspace
 colo base16-default
 set background=dark
 
@@ -48,8 +53,30 @@ set updatetime=750
 " Make it obvious where 80 characters is
 set textwidth=80
 set colorcolumn=+1
+set fo-=t           " turn off the auto-newline
 
 " Numbers
 set number
 set numberwidth=5
 
+" put filename in statusline
+set statusline+=%f
+set laststatus=2   " always show status line
+
+" syntastic
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" nerdtree
+" let NERDTreeShowHidden=1
+" map <C-n> :NERDTreeToggle<CR>
+
+" set default list style for Explore
+let g:netrw_liststyle=3
+" open up Explore
+map <C-n> :Sexplore<cr>

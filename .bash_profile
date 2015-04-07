@@ -16,6 +16,9 @@ for file in ~/.extra*; do
 done;
 unset file;
 
+# use vi mode on prompt
+set -o vi
+
 # npm bins
 export PATH="/usr/local/share/npm/bin:$PATH"
 
@@ -30,3 +33,9 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # pyenv shims, autocomplete, etc
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
+# Base16 Shell
+# BASE16_SHELL="$HOME/dotfiles/themes/base16-default.dark.sh"
+BASE16_SHELL="$HOME/dotfiles/themes/base16-default.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+

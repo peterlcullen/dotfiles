@@ -1,2 +1,3 @@
 notification :tmux,
-  change_color: false
+  change_color: true,
+  color_location: 'window-status-current-fg'

@@ -9,7 +9,7 @@
 //   open phoenix app and give permission to "control your computer" (in Preferences/Security)
 
 var mash = [ 'cmd', 'alt', 'ctrl' ],
-  monitorMash = ['alt', 'ctrl']
+  monitorMash = ['alt', 'ctrl'],
   padding = 0,
   previousSizes = {};
 
