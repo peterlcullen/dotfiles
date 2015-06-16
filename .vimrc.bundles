@@ -20,6 +20,7 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
 " Plugin 'scrooloose/nerdtree'
+Plugin 'junegunn/goyo.vim'
 
 call vundle#end()
 filetype on

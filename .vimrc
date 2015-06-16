@@ -5,6 +5,7 @@ set nocompatible
 set nobackup
 set nowritebackup
 set noswapfile
+set linebreak
 
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
@@ -23,6 +24,9 @@ set shiftround
 set expandtab
 
 set smartindent
+
+" make delete key work like normal apps
+set backspace=indent,eol,start
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
