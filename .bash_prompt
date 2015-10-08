@@ -148,6 +148,7 @@ fi;
 # Set the terminal title to the current working directory.
 PS1="\[\033]0;\w\007\]";
 PS1+="\n"; # newline
+PS1+="\[${IBlack}\]\D{%a %F %r %z}\n"; # Adds the date on its own line
 PS1+="\[${userStyle}\]\u"; # username
 PS1+="\[${IBlack}\] at ";
 PS1+="\[${hostStyle}\]\$HOSTNAME"; # host
