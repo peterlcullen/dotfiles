@@ -63,6 +63,8 @@ set fo-=t           " turn off the auto-newline
 set number
 set numberwidth=5
 
+set cursorline " highlight current line
+
 " put filename in statusline
 set statusline+=%f
 set laststatus=2   " always show status line
