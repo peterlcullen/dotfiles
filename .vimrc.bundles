@@ -21,6 +21,8 @@ Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
 " Plugin 'scrooloose/nerdtree'
 Plugin 'junegunn/goyo.vim'
+Plugin 'itchyny/lightline.vim'
+Plugin 'ntpeters/vim-better-whitespace'
 
 call vundle#end()
 filetype on
