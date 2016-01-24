@@ -1,163 +1,192 @@
-// config file for Phoenix window manager https://github.com/jasonm23/phoenix
-// To install:
-//   install cask, if haven't already
-//   $ brew install caskroom/cask/brew-cask
-//   
-//   install phoenix
-//   $ brew cask install phoenix
-//   
-//   open phoenix app and give permission to "control your computer" (in Preferences/Security)
+'use strict';
 
-var mash = [ 'cmd', 'alt', 'ctrl' ],
-  monitorMash = ['alt', 'ctrl'],
-  padding = 0,
-  previousSizes = {};
+var keys = [];
+var mash = ['cmd', 'alt', 'ctrl'];
+var monitorMash = ['alt', 'ctrl'];
+var margin = 0;
+var previousFrame;
 
-api.bind('left', monitorMash, leftOneMonitor);
-api.bind('right', monitorMash, rightOneMonitor);
+var Position = {
 
-api.bind( 'space', mash, function() {
-  Window.focusedWindow().toggleFullscreen();
-});
+    central: function (frame, window) {
+        return {
+            x: frame.x + ((frame.width - window.width) / 2),
+            y: frame.y + ((frame.height - window.height) / 2)
+        };
+    },
 
-api.bind( 'up', mash, function() {
-  Window.focusedWindow().toN();
-});
+    top: function (frame, window) {
+        return {
+            x: window.x,
+            y: frame.y
+        };
+    },
 
-api.bind( 'right', mash, function() {
-  Window.focusedWindow().toE();
-});
+    bottom: function (frame, window) {
+        return {
+            x: window.x,
+            y: (frame.y + frame.height) - window.height
+        };
+    },
 
-api.bind( 'down', mash, function() {
-  Window.focusedWindow().toS();
-});
+    left: function (frame, window) {
+        return {
+            x: frame.x,
+            y: window.y
+        };
+    },
 
-api.bind( 'left', mash, function() {
-  Window.focusedWindow().toW();
-});
+    right: function (frame, window) {
+        return {
+            x: (frame.x + frame.width) - window.width,
+            y: window.y
+        };
+    },
 
-// This method can be used to push a window to a certain position and size on
-// the screen by using four floats instead of pixel sizes.  Examples:
-//
-//     // Window position: top-left; width: 25%, height: 50%
-//     someWindow.toGrid( 0, 0, 0.25, 0.5 );
-//
-//     // Window position: 30% top, 20% left; width: 50%, height: 35%
-//     someWindow.toGrid( 0.3, 0.2, 0.5, 0.35 );
-//
-// The window will be automatically focused.  Returns the window instance.
-Window.prototype.toGrid = function( x, y, width, height ) {
-  var screen = this.screen().frameWithoutDockOrMenu(),
-    newFrame = {
-      x: Math.round( x * screen.width ) + padding + screen.x,
-      y: Math.round( y * screen.height ) + padding + screen.y,
-      width: Math.round( width * screen.width ) - ( 2 * padding ),
-      height: Math.round( height * screen.height ) - ( 2 * padding )
-    };
+    topLeft: function (frame, window, margin) {
+        return {
+            x: Position.left(frame, window).x + margin,
+            y: Position.top(frame, window).y + margin
+        };
+    },
 
-  // When setting the `height` to 1, the padding isn't applied at the bottom
-  // end of the frame.  (I guess it's a bug.)  Setting the frame to a height
-  // less than `1` first is a workaround to counter that behaviour.
-  if ( height === 1 ) {
-    this.setFrame(
-      _({}).extend( newFrame, { height: screen.height - 50 })
-    );
-  }
+    topRight: function (frame, window, margin) {
+        return {
+            x: Position.right(frame, window).x - margin,
+            y: Position.top(frame, window).y + margin
+        };
+    },
 
-  this.setFrame( newFrame );
-  this.focusWindow();
+    bottomLeft: function (frame, window, margin) {
+        return {
+            x: Position.left(frame, window).x + margin,
+            y: Position.bottom(frame, window).y - margin
+        };
+    },
 
-  return this;
+    bottomRight: function (frame, window, margin) {
+        return {
+            x: Position.right(frame, window).x - margin,
+            y: Position.bottom(frame, window).y - margin
+
+        };
+    }
 };
 
-// Convenience method, doing exactly what it says.  Returns the window
-// instance.
-Window.prototype.toFullScreen = function() {
-  return this.toGrid( 0, 0, 1, 1 );
-};
+Window.prototype.to = function (position) {
+    this.setTopLeft(position(this.screen().visibleFrameInRectangle(), this.frame(), margin));
+}
 
-// Convenience method, pushing the window to the top half of the screen.
-// Returns the window instance.
-Window.prototype.toN = function() {
-  return this.toGrid( 0, 0, 1, 0.5 );
-};
+Window.prototype.grid = function (x, y, reverse) {
+    var log = {};
+    var frame = this.screen().visibleFrameInRectangle();
 
-// Convenience method, pushing the window to the right half of the screen.
-// Returns the window instance.
-Window.prototype.toE = function() {
-  return this.toGrid( 0.5, 0, 0.5, 1 );
-};
+    var newWindowFrame = _(this.frame()).extend({
+        width: (frame.width * x) - (2 * margin),
+        height: (frame.height * y) - (2 * margin)
+    });
 
-// Convenience method, pushing the window to the bottom half of the screen.
-// Returns the window instance.
-Window.prototype.toS = function() {
-  return this.toGrid( 0, 0.5, 1, 0.5 );
-};
+    var position = reverse ? Position.topRight(frame, newWindowFrame, margin) :
+                             Position.topLeft(frame, newWindowFrame, margin);
 
-// Convenience method, pushing the window to the left half of the screen.
-// Returns the window instance.
-Window.prototype.toW = function() {
-  return this.toGrid( 0, 0, 0.5, 1 );
-};
+    this.setFrame(_(newWindowFrame).extend(position));
+}
 
-// Stores the window position and size, then makes the window full screen.
-// Should the window be full screen already, its original position and size
-// is restored.  Returns the window instance.
-Window.prototype.toggleFullscreen = function() {
-  if ( previousSizes[ this ] ) {
-    this.setFrame( previousSizes[ this ] );
-    delete previousSizes[ this ];
-  }
-  else {
-    previousSizes[ this ] = this.frame();
-    this.toFullScreen();
-  }
 
-  return this;
-};
+Window.prototype.resize = function (multiplier) {
+    var frame = this.screen().visibleFrameInRectangle();
+    var newSize = this.size();
 
-// Move Windows Between Monitors
-function moveToScreen(win, screen) {
-  if (!screen) { return; }
+    if (multiplier.x) {
+        newSize.width += frame.width * multiplier.x;
+    }
 
-  var frame = win.frame();
-  var oldScreenRect = win.screen().frameWithoutDockOrMenu();
-  var newScreenRect = screen.frameWithoutDockOrMenu();
+    if (multiplier.y) {
+        newSize.height += frame.height * multiplier.y;
+    }
 
+    this.setSize(newSize);
+}
+
+Window.prototype.isFullScreen = function () {
+    var frame = this.frame();
+    var fullScreenFrame = this.screen().visibleFrameInRectangle();
+    var isFullScreen = (frame.x === fullScreenFrame.x &&
+        frame.y === fullScreenFrame.y &&
+        frame.width === fullScreenFrame.width &&
+        frame.height === fullScreenFrame.height);
+
+    Phoenix.log(isFullScreen);
+    return isFullScreen;
+}
+
+function moveToScreen(window, screen) {
+  if (!window) return;
+  if (!screen) return;
+
+  var frame = window.frame();
+  var oldScreenRect = window.screen().visibleFrameInRectangle();
+  var newScreenRect = screen.visibleFrameInRectangle();
   var xRatio = newScreenRect.width / oldScreenRect.width;
   var yRatio = newScreenRect.height / oldScreenRect.height;
 
-  win.setFrame({
-    x: (Math.round(frame.x - oldScreenRect.x) * xRatio) + newScreenRect.x,
-    y: (Math.round(frame.x - oldScreenRect.y) * yRatio) + newScreenRect.y,
-    width: Math.round(frame.width * xRatio),
-    height: Math.round(frame.height * yRatio)
+  var mid_pos_x = frame.x + Math.round(0.5 * frame.width);
+  var mid_pos_y = frame.y + Math.round(0.5 * frame.height);
+
+  window.setFrame({
+    x: (mid_pos_x - oldScreenRect.x) * xRatio + newScreenRect.x - 0.5 * frame.width,
+    y: (mid_pos_y - oldScreenRect.y) * yRatio + newScreenRect.y - 0.5 * frame.height,
+    width: frame.width,
+    height: frame.height
   });
-}
+};
 
-function circularLookup(array, index) {
-  if (index < 0) { return array[array.length + (index % array.length)]; }
-  return array[index % array.length];
-}
 
-function rotateMonitors(offset) {
-  var win = Window.focusedWindow();
-  var currentScreen = win.screen();
-  var screens = [currentScreen];
+keys.push(Phoenix.bind('space', mash, function () {
+    var window = Window.focusedWindow();
 
-  for (var x = currentScreen.previousScreen(); x != win.screen(); x = x.previousScreen() ) {
-    screens.push(x);
-  }
+    // toggling (if currently full screen and there's a previous frame captured, use that)
+    if (window.isFullScreen() && previousFrame ) {
+        window.setFrame(previousFrame);
+        previousFrame = null;
+        return;
+    }
 
-  screens = _(screens).sortBy(function(s) { return s.frameWithoutDockOrMenu().x });
-  var currentIndex = _(screens).indexOf(currentScreen);
-  moveToScreen(win, circularLookup(screens, currentIndex + offset));
-}
+    previousFrame = window.frame();
+    window.grid(1, 1);
+    window.to(Position.topLeft);
+}));
 
-function leftOneMonitor() {
-  rotateMonitors(-1);
-}
+keys.push(Phoenix.bind('left', mash, function () {
+    var window = Window.focusedWindow();
+    window.grid(0.5, 1);
+    window.to(Position.left);
+}));
 
-function rightOneMonitor() {
-  rotateMonitors(1);
-}
+keys.push(Phoenix.bind('right', mash, function () {
+    var window = Window.focusedWindow();
+    window.grid(0.5, 1);
+    window.to(Position.right);
+}));
+
+keys.push(Phoenix.bind('up', mash, function () {
+    var window = Window.focusedWindow();
+    window.grid(1, 0.5);
+    window.to(Position.top);
+}));
+
+keys.push(Phoenix.bind('down', mash, function () {
+    var window = Window.focusedWindow();
+    window.grid(1, 0.5);
+    window.to(Position.bottom);
+}));
+
+keys.push(Phoenix.bind('right', monitorMash, function () {
+    var window = Window.focusedWindow();
+    moveToScreen(window, window.screen().next());
+}));
+
+keys.push(Phoenix.bind('left', monitorMash, function () {
+    var window = Window.focusedWindow();
+    moveToScreen(window, window.screen().previous());
+}));
