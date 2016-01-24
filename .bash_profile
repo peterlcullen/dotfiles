@@ -38,3 +38,8 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 BASE16_SHELL="$HOME/dotfiles/themes/base16-monokai.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
+# bash_history settings
+export HISTTIMEFORMAT='%F %T ' # timestamp in history to improve task tracking
+export HISTSIZE=100000         # big history
+export HISTFILESIZE=100000     # big history
+shopt -s histappend            # append to history, rather than overrite
