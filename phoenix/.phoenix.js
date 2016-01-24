@@ -114,9 +114,14 @@ Window.prototype.resize = function (multiplier) {
     return this;
 }
 
-Window.prototype.makeRoomForResize = function (attachedEdge) {
+Window.prototype.makeRoomForResize = function (attachedEdge, resizeAmount) {
     // this is a hack to move the window before resizing it
     // the framework doesn't allow resizing beyond the limits of the screen
+
+    if (resizeAmount < 0) {
+        // no need to do anything if its shrinking
+        return this;
+    }
 
     if (attachedEdge === 'right') {
         this.setTopLeft({
@@ -141,7 +146,7 @@ Window.prototype.resizeAgainstEdge = function (directionTowards, edge) {
 
     // resizing towards the edge (make it smaller)
     if (directionTowards === edge) {
-        resizeAmount = resizeAmount * -1
+        resizeAmount = resizeAmount * -1;
     }
 
     if (edge === 'left' || edge === 'right') {
@@ -152,7 +157,8 @@ Window.prototype.resizeAgainstEdge = function (directionTowards, edge) {
         resizeParams['y'] = resizeAmount;
     }
 
-    this.resize(resizeParams)
+    this.makeRoomForResize(edge, resizeAmount)
+        .resize(resizeParams)
         .to(Position[edge]);
 }
 
