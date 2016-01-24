@@ -15,7 +15,7 @@ Use [stow](https://www.gnu.org/software/stow/) to install the desired packages i
 OSX window manager - [phoenix](https://github.com/jasonm23/phoenix)
 
 - load this config with `stow phoenix`
-- install phoenix via homebrew/cask `brew install caskroom/cask/brew-cask && brew cask install phoenix`
+- install phoenix via homebrew/cask `brew tap caskroom/cask && brew cask install phoenix`
 
 ## iTerm themes
 - `stow themes` if you want base16 themes to be loaded into the shell
