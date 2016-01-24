@@ -78,7 +78,6 @@ Window.prototype.to = function (position) {
 }
 
 Window.prototype.grid = function (x, y, reverse) {
-    var log = {};
     var frame = this.screen().visibleFrameInRectangle();
 
     var newWindowFrame = _(this.frame()).extend({
@@ -116,7 +115,6 @@ Window.prototype.isFullScreen = function () {
         frame.width === fullScreenFrame.width &&
         frame.height === fullScreenFrame.height);
 
-    Phoenix.log(isFullScreen);
     return isFullScreen;
 }
 
