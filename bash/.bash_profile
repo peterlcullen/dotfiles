@@ -35,6 +35,6 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
 # Base16 Shell
-BASE16_SHELL="$HOME/dotfiles/themes/base16-monokai.dark.sh"
+BASE16_SHELL="$HOME/.iterm-themes/base16-monokai.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
