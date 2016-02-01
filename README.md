@@ -4,7 +4,7 @@
 Use [stow](https://www.gnu.org/software/stow/) to install the desired packages in this repo.  
   - `brew install stow` to get stow on a mac
   - the repo should be in `~/dotfiles` because stow needs to put symlinks into the home directory
-  - cd into the repo, then `stow bash git vim` to install bash, git, and vim.  Add any others you need.
+  - cd into the repo, then `stow bash git vim` to install configurations in the bash, git, and vim directories.  Add any others you need.
 
 ## Vim
   - make sure vim config are installed with `stow vim`
