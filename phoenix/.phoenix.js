@@ -78,7 +78,7 @@ Window.prototype.to = function (position) {
     this.setTopLeft(position(this.screen().visibleFrameInRectangle(), this.frame(), margin));
 
     return this;
-}
+};
 
 Window.prototype.grid = function (x, y, reverse) {
     var frame = this.screen().visibleFrameInRectangle();
@@ -94,7 +94,7 @@ Window.prototype.grid = function (x, y, reverse) {
     this.setFrame(_(newWindowFrame).extend(position));
 
     return this;
-}
+};
 
 
 Window.prototype.resize = function (multiplier) {
@@ -112,14 +112,14 @@ Window.prototype.resize = function (multiplier) {
     this.setSize(newSize);
 
     return this;
-}
+};
 
 Window.prototype.makeRoomForResize = function (attachedEdge, resizeAmount) {
     // this is a hack to move the window before resizing it
     // the framework doesn't allow resizing beyond the limits of the screen
 
+    // no need to do anything if its shrinking
     if (resizeAmount < 0) {
-        // no need to do anything if its shrinking
         return this;
     }
 
@@ -138,7 +138,7 @@ Window.prototype.makeRoomForResize = function (attachedEdge, resizeAmount) {
     }
 
     return this;
-}
+};
 
 Window.prototype.resizeAgainstEdge = function (directionTowards, edge) {
     var resizeParams = {};
@@ -160,18 +160,17 @@ Window.prototype.resizeAgainstEdge = function (directionTowards, edge) {
     this.makeRoomForResize(edge, resizeAmount)
         .resize(resizeParams)
         .to(Position[edge]);
-}
+};
 
 Window.prototype.isFullScreen = function () {
     var frame = this.frame();
     var fullScreenFrame = this.screen().visibleFrameInRectangle();
-    var isFullScreen = (frame.x === fullScreenFrame.x &&
+
+    return (frame.x === fullScreenFrame.x &&
         frame.y === fullScreenFrame.y &&
         frame.width === fullScreenFrame.width &&
         frame.height === fullScreenFrame.height);
-
-    return isFullScreen;
-}
+};
 
 Window.prototype.isTouchingEdge = function (edge) {
     var isTouchingEdge = false;
@@ -195,14 +194,13 @@ Window.prototype.isTouchingEdge = function (edge) {
     }
 
     return isTouchingEdge;
-}
+};
 
-function moveToScreen(window, screen) {
-  if (!window) return;
+Window.prototype.moveToScreen = function(screen) {
   if (!screen) return;
 
-  var frame = window.frame();
-  var oldScreenRect = window.screen().visibleFrameInRectangle();
+  var frame = this.frame();
+  var oldScreenRect = this.screen().visibleFrameInRectangle();
   var newScreenRect = screen.visibleFrameInRectangle();
   var xRatio = newScreenRect.width / oldScreenRect.width;
   var yRatio = newScreenRect.height / oldScreenRect.height;
@@ -210,7 +208,7 @@ function moveToScreen(window, screen) {
   var mid_pos_x = frame.x + Math.round(0.5 * frame.width);
   var mid_pos_y = frame.y + Math.round(0.5 * frame.height);
 
-  window.setFrame({
+  this.setFrame({
       x: (mid_pos_x - oldScreenRect.x) * xRatio + newScreenRect.x - 0.5 * frame.width,
       y: (mid_pos_y - oldScreenRect.y) * yRatio + newScreenRect.y - 0.5 * frame.height,
       width: frame.width,
@@ -223,7 +221,7 @@ keys.push(Phoenix.bind('space', mash, function () {
     var window = Window.focusedWindow();
 
     // toggling (if currently full screen and there's a previous frame captured, use that)
-    if (window.isFullScreen() && previousFrame ) {
+    if (window.isFullScreen() && previousFrame) {
         window.setFrame(previousFrame);
         previousFrame = null;
         return;
@@ -309,10 +307,10 @@ keys.push(Phoenix.bind('down', mash, function () {
 
 keys.push(Phoenix.bind('right', monitorMash, function () {
     var window = Window.focusedWindow();
-    moveToScreen(window, window.screen().next());
+    window.moveToScreen(window.screen().next());
 }));
 
 keys.push(Phoenix.bind('left', monitorMash, function () {
     var window = Window.focusedWindow();
-    moveToScreen(window, window.screen().previous());
+    window.moveToScreen(window.screen().previous());
 }));
