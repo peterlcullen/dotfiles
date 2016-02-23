@@ -21,4 +21,4 @@ OSX window manager - [phoenix](https://github.com/jasonm23/phoenix)
 - `stow themes` if you want base16 themes to be loaded into the shell
 
 ## Files outside of this repo
-For convenience, `~/.extra` and any file beginning with `.extra` will be sourced.
+For convenience, the `.bash_profile` in this repo will source any files matching the glob `~/.extra*`
