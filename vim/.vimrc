@@ -49,7 +49,13 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " Color overrides
 let base16colorspace=256  " Access colors present in 256 colorspace
 colo base16-default
+
 set background=dark
+" Override color if we're using a light scheme
+let base16_light_colors=$BASE16_LIGHT_COLORS
+if base16_light_colors == 'true'
+set background=light
+endif
 
 " GitGutter Config
 set updatetime=750
