@@ -217,8 +217,8 @@ Window.prototype.moveToScreen = function(screen) {
 };
 
 
-keys.push(Phoenix.bind('space', mash, function () {
-    var window = Window.focusedWindow();
+keys.push(new Key('space', mash, function () {
+    var window = Window.focused();
 
     // toggling (if currently full screen and there's a previous frame captured, use that)
     if (window.isFullScreen() && previousFrame) {
@@ -233,8 +233,8 @@ keys.push(Phoenix.bind('space', mash, function () {
         .to(Position.topLeft);
 }));
 
-keys.push(Phoenix.bind('left', mash, function () {
-    var window = Window.focusedWindow();
+keys.push(new Key('left', mash, function () {
+    var window = Window.focused();
     var isFullScreen = window.isFullScreen();
 
     if (window.isTouchingEdge('left') && !isFullScreen) {
@@ -251,8 +251,8 @@ keys.push(Phoenix.bind('left', mash, function () {
         .to(Position.left);
 }));
 
-keys.push(Phoenix.bind('right', mash, function () {
-    var window = Window.focusedWindow();
+keys.push(new Key('right', mash, function () {
+    var window = Window.focused();
     var isFullScreen = window.isFullScreen();
 
     if (window.isTouchingEdge('right') && !isFullScreen) {
@@ -269,8 +269,8 @@ keys.push(Phoenix.bind('right', mash, function () {
         .to(Position.right);
 }));
 
-keys.push(Phoenix.bind('up', mash, function () {
-    var window = Window.focusedWindow();
+keys.push(new Key('up', mash, function () {
+    var window = Window.focused();
     var isFullScreen = window.isFullScreen();
 
     if (window.isTouchingEdge('top') && !isFullScreen) {
@@ -287,8 +287,8 @@ keys.push(Phoenix.bind('up', mash, function () {
         .to(Position.top);
 }));
 
-keys.push(Phoenix.bind('down', mash, function () {
-    var window = Window.focusedWindow();
+keys.push(new Key('down', mash, function () {
+    var window = Window.focused();
     var isFullScreen = window.isFullScreen();
 
     if (window.isTouchingEdge('bottom') && !isFullScreen) {
@@ -305,12 +305,12 @@ keys.push(Phoenix.bind('down', mash, function () {
         .to(Position.bottom);
 }));
 
-keys.push(Phoenix.bind('right', monitorMash, function () {
-    var window = Window.focusedWindow();
+keys.push(new Key('right', monitorMash, function () {
+    var window = Window.focused();
     window.moveToScreen(window.screen().next());
 }));
 
-keys.push(Phoenix.bind('left', monitorMash, function () {
-    var window = Window.focusedWindow();
+keys.push(new Key('left', monitorMash, function () {
+    var window = Window.focused();
     window.moveToScreen(window.screen().previous());
 }));
