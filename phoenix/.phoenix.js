@@ -219,6 +219,9 @@ Window.prototype.moveToScreen = function(screen) {
 
 keys.push(new Key('space', mash, function () {
     var window = Window.focused();
+    if (window === null || window === undefined) {
+        return;
+    }
 
     // toggling (if currently full screen and there's a previous frame captured, use that)
     if (window.isFullScreen() && previousFrame) {
@@ -235,6 +238,10 @@ keys.push(new Key('space', mash, function () {
 
 keys.push(new Key('left', mash, function () {
     var window = Window.focused();
+    if (window === null || window === undefined) {
+        return;
+    }
+
     var isFullScreen = window.isFullScreen();
 
     if (window.isTouchingEdge('left') && !isFullScreen) {
@@ -253,6 +260,10 @@ keys.push(new Key('left', mash, function () {
 
 keys.push(new Key('right', mash, function () {
     var window = Window.focused();
+    if (window === null || window === undefined) {
+        return;
+    }
+
     var isFullScreen = window.isFullScreen();
 
     if (window.isTouchingEdge('right') && !isFullScreen) {
@@ -271,6 +282,10 @@ keys.push(new Key('right', mash, function () {
 
 keys.push(new Key('up', mash, function () {
     var window = Window.focused();
+    if (window === null || window === undefined) {
+        return;
+    }
+
     var isFullScreen = window.isFullScreen();
 
     if (window.isTouchingEdge('top') && !isFullScreen) {
@@ -289,6 +304,10 @@ keys.push(new Key('up', mash, function () {
 
 keys.push(new Key('down', mash, function () {
     var window = Window.focused();
+    if (window === null || window === undefined) {
+        return;
+    }
+
     var isFullScreen = window.isFullScreen();
 
     if (window.isTouchingEdge('bottom') && !isFullScreen) {
@@ -307,10 +326,18 @@ keys.push(new Key('down', mash, function () {
 
 keys.push(new Key('right', monitorMash, function () {
     var window = Window.focused();
+    if (window === null || window === undefined) {
+        return;
+    }
+
     window.moveToScreen(window.screen().next());
 }));
 
 keys.push(new Key('left', monitorMash, function () {
     var window = Window.focused();
+    if (window === null || window === undefined) {
+        return;
+    }
+
     window.moveToScreen(window.screen().previous());
 }));
