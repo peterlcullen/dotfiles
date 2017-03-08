@@ -7,31 +7,31 @@ if [ "${TERM%%-*}" = 'linux' ]; then
     return 2>/dev/null || exit 0
 fi
 
-color00="1C/1D/19" # Base 00 - Black
-color01="EE/00/5D" # Base 08 - Red
-color02="98/E1/24" # Base 0B - Green
-color03="F0/B3/62" # Base 0A - Yellow
-color04="58/D1/EA" # Base 0D - Blue
-color05="9D/64/FF" # Base 0E - Magenta
-color06="92/ED/DE" # Base 0C - Cyan
-color07="F6/F6/EE" # Base 05 - White
-color08="61/5E/4C" # Base 03 - Bright Black
+color00="27/28/22" # Base 00 - Black
+color01="f9/26/72" # Base 08 - Red
+color02="a6/e2/2e" # Base 0B - Green
+color03="f4/bf/75" # Base 0A - Yellow
+color04="66/d9/ef" # Base 0D - Blue
+color05="ae/81/ff" # Base 0E - Magenta
+color06="a1/ef/e4" # Base 0C - Cyan
+color07="f8/f8/f2" # Base 05 - White
+color08="75/71/5e" # Base 03 - Bright Black
 color09=$color01 # Base 08 - Bright Red
 color10=$color02 # Base 0B - Bright Green
 color11=$color03 # Base 0A - Bright Yellow
 color12=$color04 # Base 0D - Bright Blue
 color13=$color05 # Base 0E - Bright Magenta
 color14=$color06 # Base 0C - Bright Cyan
-color15="F8/F6/F2" # Base 07 - Bright White
-color16="FA/85/19" # Base 09
-color17="BF/51/27" # Base 0F
-color18="2A/2B/24" # Base 01
-color19="38/38/2F" # Base 02
-color20="94/8E/72" # Base 04
-color21="F3/F1/ED" # Base 06
-color_foreground="F6/F6/EE" # Base 05
-color_background="1C/1D/19" # Base 00
-color_cursor="F6/F6/EE" # Base 05
+color15="f9/f8/f5" # Base 07 - Bright White
+color16="fd/97/1f" # Base 09
+color17="cc/66/33" # Base 0F
+color18="38/38/30" # Base 01
+color19="49/48/3e" # Base 02
+color20="a5/9f/85" # Base 04
+color21="f5/f4/f1" # Base 06
+color_foreground="f8/f8/f2" # Base 05
+color_background="27/28/22" # Base 00
+color_cursor="f8/f8/f2" # Base 05
 
 if [ -n "$TMUX" ]; then
   # tell tmux to pass the escape sequences through
@@ -44,6 +44,9 @@ elif [ "${TERM%%-*}" = "screen" ]; then
   printf_template="\033P\033]4;%d;rgb:%s\007\033\\"
   printf_template_var="\033P\033]%d;rgb:%s\007\033\\"
   printf_template_custom="\033P\033]%s%s\007\033\\"
+elif [[ $- != *i* ]]; then
+  # non-interactive
+  alias printf=/bin/false
 else
   printf_template="\033]4;%d;rgb:%s\033\\"
   printf_template_var="\033]%d;rgb:%s\033\\"
@@ -79,17 +82,17 @@ printf $printf_template 21 $color21
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
   # iTerm2 proprietary escape codes
-  printf $printf_template_custom Pg F6F6EE # forground
-  printf $printf_template_custom Ph 1C1D19 # background
-  printf $printf_template_custom Pi F6F6EE # bold color
-  printf $printf_template_custom Pj 38382F # selection color
-  printf $printf_template_custom Pk F6F6EE # selected text color
-  printf $printf_template_custom Pl F6F6EE # cursor
-  printf $printf_template_custom Pm 1C1D19 # cursor text
+  printf $printf_template_custom Pg f8f8f2 # forground
+  printf $printf_template_custom Ph 272822 # background
+  printf $printf_template_custom Pi f8f8f2 # bold color
+  printf $printf_template_custom Pj 49483e # selection color
+  printf $printf_template_custom Pk f8f8f2 # selected text color
+  printf $printf_template_custom Pl f8f8f2 # cursor
+  printf $printf_template_custom Pm 272822 # cursor text
 else
   printf $printf_template_var 10 $color_foreground
   printf $printf_template_var 11 $color_background
-  printf $printf_template_var 12 $color_cursor
+  printf $printf_template_custom 12 ";7" # cursor (reverse video)
 fi
 
 # clean up
