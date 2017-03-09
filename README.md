@@ -18,8 +18,8 @@ OSX window manager - [phoenix](https://github.com/jasonm23/phoenix)
 - install phoenix via homebrew/cask `brew tap caskroom/cask && brew cask install phoenix`
 
 ## base16-shell
+- this is a git submodule so you need to run `git submodule init && git submodule update`
 - `stow base16-shell` if you want to use this
-- this is a git submodule so you also need to run `git submodule init && git submodule update`
 
 ## Files outside of this repo
 For convenience, the `.bash_profile` in this repo will source any files matching the glob `~/.extra*`
