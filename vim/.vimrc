@@ -48,13 +48,11 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " Color overrides
 let base16colorspace=256  " Access colors present in 256 colorspace
-colo base16-default
+colo base16-default-dark
 
-set background=dark
-" Override color if we're using a light scheme
-let base16_light_colors=$BASE16_LIGHT_COLORS
-if base16_light_colors == 'true'
-set background=light
+" Use vimrc file to retrieve current color being used by base16-shell
+if filereadable(expand("~/.vimrc_background"))
+  source ~/.vimrc_background
 endif
 
 " GitGutter Config
@@ -92,3 +90,4 @@ let g:syntastic_check_on_wq = 0
 let g:netrw_liststyle=3
 " open up Explore
 map <C-n> :Sexplore<cr>
+

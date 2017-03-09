@@ -34,9 +34,9 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # pyenv shims, autocomplete, etc
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
-# Base16 Shell
-BASE16_SHELL="$HOME/.iterm-themes/base16-monokai.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# Load up Base16 Shell (for color fanciness)
+BASE16_SHELL=$HOME/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # bash_history settings
 export HISTTIMEFORMAT='%F %T ' # timestamp in history to improve task tracking
