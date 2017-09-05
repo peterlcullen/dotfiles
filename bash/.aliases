@@ -8,3 +8,7 @@ alias localip="ipconfig getifaddr en0"
 
 # preserve color in less
 alias less="less -r"
+
+alias wrapoff='tput rmam'
+alias wrapon='tput smam'
+
