@@ -2,6 +2,11 @@
 
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
+export PATH="$HOME/go/bin:$PATH";
+
+eval "$(starship init bash)"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
@@ -15,6 +20,10 @@ for file in ~/.extra*; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
+
+# don't automatically logout on ctrlD
+# https://news.ycombinator.com/item?id=18249088
+set -o ignoreeof
 
 # use vi mode on prompt
 set -o vi
@@ -43,3 +52,14 @@ export HISTTIMEFORMAT='%F %T ' # timestamp in history to improve task tracking
 export HISTSIZE=100000         # big history
 export HISTFILESIZE=100000     # big history
 shopt -s histappend            # append to history, rather than overrite
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '~/google-cloud-sdk/path.bash.inc' ]; then source '~/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '~/google-cloud-sdk/completion.bash.inc' ]; then source '~/google-cloud-sdk/completion.bash.inc'; fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
