@@ -1,8 +1,9 @@
 [user]
-  name = Peter Cullen
-  # email - set on each repo
+	name = Peter Cullen
+	email = 726271+peterlcullen@users.noreply.github.com
 
 [core]
+	excludesfile = /Users/peter/.gitignore_global
 
 [color]
   ui = true
@@ -66,3 +67,7 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+[url "git@gitlab.com:"]
+	insteadOf = https://gitlab.com/
+[url "git@github.com:"]
+	insteadOf = https://github.com/
