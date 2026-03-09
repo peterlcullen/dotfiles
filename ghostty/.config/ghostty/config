@@ -1,0 +1,6 @@
+font-family = "JetBrainsMono Nerd Font"
+font-style = Regular
+
+theme = Dracula+
+cursor-style = block
+cursor-style-blink = false
